@@ -1,5 +1,5 @@
 import logging
-import uuid
+import os
 import boto3
 
 
@@ -23,12 +23,15 @@ def lambda_handler(event, context):
             source_bucket = record["s3"]["bucket"]["name"]
             source_object = record["s3"]["object"]["key"]
 
+            _, extention = os.path.splitext(source_object)
+
+            if extention not in ['.mp3', '.mp4', '.wav', '.flac']:
+                raise Exception('Invalid file type, the only supported AWS Transcribe file types are mp3, mp4, wav, flac')
+
             id = context.aws_request_id
 
             s3_path = f"s3://{source_bucket}/{source_object}"
-            # job_name = f"{source_object}-{str(uuid.uuid4())}"
-            # job_name = f"{source_object.replace('/','-')}-{id}"
-            job_name = f"voice-to-text-{id}"
+            job_name = f"aws-connect-audio-to-text-{id}"
 
             print(f'>> transcribe job name: {job_name}')
 
