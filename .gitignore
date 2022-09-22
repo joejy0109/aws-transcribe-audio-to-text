@@ -1,2 +1,23 @@
+## Python
+
 # Virtual Environment for python
 .venv
+
+
+## Terraform
+
+# Local terraform directories
+**/.terraform/*
+
+# State files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+*.log
+
+# Sensitive data
+*.tfvars
+
+# source code pacakge
+*.zip
