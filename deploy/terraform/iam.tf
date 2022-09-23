@@ -4,7 +4,7 @@ data "aws_iam_policy_document" "aws_lambda_trust_policy" {
     effect  = "Allow"
     principals {
       type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
+      identifiers = ["lambda.amazonaws.com", "transcribe.amazonaws.com"]
     }
   }
 }
@@ -27,12 +27,12 @@ resource "aws_iam_role_policy_attachment" "lambda_exec_policy" {
 
 resource "aws_iam_role_policy_attachment" "lambda_bucket_policy" {
   role       = aws_iam_role.lambda_exec.name
-  policy_arn = aws_iam_policy.lambda_source_bucket.arn
+  policy_arn = aws_iam_policy.transcribe_bucket.arn
 }
 
 
-resource "aws_iam_policy" "lambda_source_bucket" {
-  name = "${local.owner_id}-lambda-source-bucket-policy-${local.suffix}"
+resource "aws_iam_policy" "transcribe_bucket" {
+  name = "${local.owner_id}-transcribe-bucket-policy-${local.suffix}"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -40,15 +40,28 @@ resource "aws_iam_policy" "lambda_source_bucket" {
       {
         Effect = "Allow"
         Action = [
-          "s3:*Object"
-          # "s3:PutObject",
-          # "s3:GetObject",
-          # "s3:ListBucket",
+          "s3:GetObject",
         ]
         Resource = [
-          "${aws_s3_bucket.lambda_source.arn}",
           "${aws_s3_bucket.audio_input.arn}",
-          "${aws_s3_bucket.transcription_output.arn}",
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:PubObject"
+        ]
+        Resource = [
+          "${aws_s3_bucket.transcription_output.arn}/*",
+        ]
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = [
+          "${aws_s3_bucket.transcription_output.arn}"
         ]
       }
     ]

@@ -24,7 +24,7 @@ locals {
 
   archive_filename = "lambda_transcription_source.zip"
 
-  transcription_job_name = "${local.owner_id}-${var.transcription_job_name}-${local.suffix}" # AWS Transcribe Job명
+  transcription_job_name = "${local.owner_id}-${var.transcription_job_name}-${local.suffix}" # Transcription Job명
 
   tags = {
     owner = "${local.owner_id}"
