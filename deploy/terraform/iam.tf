@@ -40,14 +40,15 @@ resource "aws_iam_policy" "lambda_source_bucket" {
       {
         Effect = "Allow"
         Action = [
-          "s3:PutObject",
-          "s3:GetObject",
-          "s3:ListBucket",
+          "s3:*Object"
+          # "s3:PutObject",
+          # "s3:GetObject",
+          # "s3:ListBucket",
         ]
         Resource = [
           "${aws_s3_bucket.lambda_source.arn}",
           "${aws_s3_bucket.audio_input.arn}",
-          "${aws_s3_bucket.transcription_output.arn}/*",
+          "${aws_s3_bucket.transcription_output.arn}",
         ]
       }
     ]
@@ -60,4 +61,9 @@ resource "aws_iam_policy" "lambda_source_bucket" {
 resource "aws_iam_role_policy_attachment" "transcribe_policy" {
   role       = aws_iam_role.lambda_exec.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonTranscribeFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "s3_fullaccess_policy" {
+  role       = aws_iam_role.lambda_exec.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }

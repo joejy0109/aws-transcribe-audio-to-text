@@ -42,7 +42,7 @@ resource "aws_lambda_function" "transcribe" {
   environment {
     variables = {
       TRANSCRIPTION_OUTPUT_BUCKET = local.transcription_output_bucket
-      TRANSCRIBE_JOB_NAME         = local.transcribe_job_name
+      TRANSCRIPTION_JOB_NAME      = local.transcription_job_name
     }
   }
 

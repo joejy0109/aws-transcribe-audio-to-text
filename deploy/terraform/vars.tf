@@ -50,8 +50,8 @@ variable "transcription_output_bucket" {
   default     = "transcription-output"
 }
 
-variable "transcribe_job_name" {
+variable "transcription_job_name" {
   description = ""
   type        = string
-  default     = "voice-to-text"
+  default     = "audio-to-text"
 }
