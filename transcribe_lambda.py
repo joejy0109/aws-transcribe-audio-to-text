@@ -34,7 +34,6 @@ def lambda_handler(event, context):
             output_id = context.aws_request_id[:8]
 
             s3_path = f"s3://{source_bucket}/{source_object}"
-            # s3_path = f"https://{source_bucket}.ap-northeast-2.amazonaws.com/{source_object}"
             # job_name = f"aws-connect-audio-to-text-{id}"
 
             # print(f'>> transcribe job name: {job_name}')
