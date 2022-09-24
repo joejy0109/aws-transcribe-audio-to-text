@@ -25,11 +25,14 @@ resource "aws_s3_bucket_acl" "audio_input" {
 resource "aws_s3_bucket_public_access_block" "audio_input" {
   bucket = aws_s3_bucket.audio_input.id
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
+# Configure the notification for creating object to bucket.
+# s3 버킷 통지 기능 설정
 resource "aws_s3_bucket_notification" "audio_input" {
   bucket = aws_s3_bucket.audio_input.id
 
@@ -66,9 +69,10 @@ resource "aws_s3_bucket_acl" "lambda_source" {
 resource "aws_s3_bucket_public_access_block" "lamda_source" {
   bucket = aws_s3_bucket.lambda_source.id
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 # A bucket of the audio-to-bucket.
@@ -91,9 +95,10 @@ resource "aws_s3_bucket_acl" "transcription_output" {
 resource "aws_s3_bucket_public_access_block" "transcription_output" {
   bucket = aws_s3_bucket.transcription_output.id
 
-  block_public_acls   = true
-  block_public_policy = true
-  ignore_public_acls  = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 
