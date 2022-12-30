@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SUFFIX='24kgo4o8'
+SUFFIX='j6xhbaz4'
 
 # BUCKET='poc-chosen-callcenter'
 BUCKET="jeongyong-audio-input-${SUFFIX}"
