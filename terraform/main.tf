@@ -14,7 +14,7 @@ locals {
 
   current_path = abspath(path.module)                # 테라폼 현재(루트) 디렉터리 위치
   parent_path  = abspath("${local.current_path}/..") # 루트의 부모 디렉터리 위치
-  root_path    = abspath("${local.parent_path}/..")  # 프로젝트 루트 디렉터리 위치
+  root_path    = abspath("${local.parent_path}")     # 프로젝트 루트 디렉터리 위치
 
   source_root_path    = abspath("${local.parent_path}/src")       # 소스 코드 파일 루트 디렉터리 위치
   packages_root_path  = abspath("${local.parent_path}/.packages") # 패키지 모듈 디렉터리 위치
