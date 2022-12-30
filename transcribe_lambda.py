@@ -12,12 +12,8 @@ def success(msg):
 
 def lambda_handler(event, context):
     # from s3 trigger
-
     output_bucket = os.environ.get('TRANSCRIPTION_OUTPUT_BUCKET')
     transcription_job_name = os.environ.get('TRANSCRIPTION_JOB_NAME')
-
-    print(event)
-    print(context)
 
     records = event.get("Records")
 
